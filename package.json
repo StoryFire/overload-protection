@@ -1,6 +1,6 @@
 {
   "name": "overload-protection",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "index.js",
   "scripts": {
     "test": "tap test",
@@ -33,6 +33,9 @@
     "restify"
   ],
   "author": "David Mark Clements <huperekchuno@googlemail.com>",
+  "maintainers": [
+      "Vin Souza <vin.souza@scalablepath.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
     "express": "^4.17.1",

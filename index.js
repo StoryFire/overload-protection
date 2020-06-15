@@ -18,11 +18,13 @@ var defaults = {
   maxHeapUsedBytes: 0,
   maxRssBytes: 0,
   logging: false,
-  logStatsOnReq: false
+  logStatsOnReq: false,
+  errorCode: 503
 }
 
 function protect (framework, opts) {
   opts = Object.assign({}, defaults, opts)
+
   if (typeof framework === 'undefined') {
     throw Error('Please specify a framework')
   }

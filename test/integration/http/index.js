@@ -32,6 +32,29 @@ test('sends 503 when event loop is overloaded, per maxEventLoopDelay', function 
   })
 })
 
+test('sends 504 when event loop is overloaded, per maxEventLoopDelay', function (t) {
+  var protect = protection('http', {
+    maxEventLoopDelay: 1,
+    errorCode: 504
+  })
+
+  var server = http.createServer(function serve (req, res) {
+    sleep(500)
+    if (protect(req, res) === true) return
+    res.end('content')
+  })
+
+  server.listen(3000, function () {
+    var req = http.get('http://localhost:3000')
+    req.on('response', function (res) {
+      t.is(res.statusCode, 504)
+      protect.stop()
+      server.close()
+      t.end()
+    }).end()
+  })
+})
+
 test('sends 503 when heap used threshold is passed, as per maxHeapUsedBytes', function (t) {
   var memoryUsage = process.memoryUsage
   process.memoryUsage = function () {
